@@ -29,28 +29,14 @@ public class Client {
     public static void main(String args[]) throws IOException {
 		// Création d'un socket client et connexion avec un serveur fonctionnant sur la même machine et sur le port 40000
 		Socket sc = new Socket("localhost", 40000);
+                Socket scom = new Socket("localhost", 39000); 
 		
 		// Construction d'un BufferedReader pour lire du texte envoyé à travers la connexion socket
 		BufferedReader entreeSocket = new BufferedReader(new InputStreamReader(sc.getInputStream()));
 		// Construction d'un PrintStream pour envoyer du texte à travers la connexion socket
-		BufferedOutputStream sortieSocket = new BufferedOutputStream(sc.getOutputStream());
+		BufferedOutputStream sortieSocket = new BufferedOutputStream(scom.getOutputStream());
                 
                 PrintStream sortieNomFich = new PrintStream(sc.getOutputStream());
-                
-//                 BufferedReader fichier = new BufferedReader(new FileReader("C:"
-//                         + "\\Users\\vanat\\OneDrive\\Documents"
-//                        + "\\NetBeansProjects\\BitTorrent_Baalal_Hott_Vaty"
-//                        + "\\BItTorrent_Baalal_Hott_Vaty\\src\\srcClient\\fonddecrantropbeau.jpg"));
-//				
-//                 FileInputStream fich = new FileInputStream(new File("C:"
-//                         + "\\Users\\vanat\\OneDrive\\Documents"
-//                        + "\\NetBeansProjects\\BitTorrent_Baalal_Hott_Vaty"
-//                        + "\\BItTorrent_Baalal_Hott_Vaty\\src\\srcClient\\testSrc.txt"));
-                 
-                
-                  
-                  //FileOutputStream sortie = new FileOutputStream(new File(sc.getOutputStream()));
-                 
                  
 		String chaine = "";
                 String cheminFich;
@@ -74,20 +60,29 @@ public class Client {
                 
                 FileInputStream fichierSrc = new FileInputStream(new File(cheminFich));
                   
-                sortieNomFich.println(chaine);
+                sortieNomFich.print(chaine);
                 
                 while ((n=fichierSrc.read(buffer))>0) {
                    
                     sortieSocket.write(buffer,0,n);
-                    //sortieSocket.flush(); // flush si texte < 250 caract
+                    sortieSocket.flush(); // flush si texte < 250 caract
                     System.out.println(buffer);
                    
                 }
 
 		// on ferme nous aussi la connexion
 		sc.close();
+                scom.close();
 	}
 }
+
+
+
+
+
+
+
+
 
 
 
