@@ -42,7 +42,7 @@ public class Serveur {
                 // Construction d'un BufferedReader pour lire le nom du fichier envoyé à travers la connexion socket
                 BufferedReader entreeNomFich = new BufferedReader(new InputStreamReader(sssF.getInputStream()));
                 
-                // On créé le fichier BitTorrentBHV à la racine du disque C pour stocker le fichier
+                // On créé le dossier BitTorrentBHV à la racine du disque C pour stocker le fichier
                 String destFich = "C:\\BitTorrentBHV\\";
                 File dossier = new File(destFich);
                 boolean estCree = dossier.mkdirs();
@@ -70,7 +70,7 @@ public class Serveur {
                     
                 }
                 // Le fichier a bien été copié
-                System.out.println("Fichier créé à la racine du fichier C:"
+                System.out.println("Fichier créé à la racine du disque C:"
                         + " dans le dossier BitTorrentBHV");
                 
                 // on ferme nous aussi la connexion
@@ -83,4 +83,6 @@ public class Serveur {
     }
     
 }
+
+
 
