@@ -19,7 +19,7 @@ import java.util.Scanner;
  *
  * @author Baalal,Hott,Vaty
  */
-public class ServeurPara {
+public class ServeurPara1 {
     public static void main(String args[]) throws Exception {
         
         // Création d'un socket pour le nom du fichier sur le port 40000
@@ -74,12 +74,7 @@ public class ServeurPara {
                 
                 ps.println(ch);
                 System.out.println(ch);
-                
-                
-               
-                for (int i=0;i<3;i++) {
-                    
-                   
+                  
                     switch (entreeClient.readLine()){
                         case "1":
                             try {
@@ -94,52 +89,9 @@ public class ServeurPara {
                             
                             break;
                             
-                        case "2":
-                            try {
-                                while(fichierSrc.skip(-1) != 0) {
-                                    
-                                }
-                            } catch(IOException e) {
-                                
-                            }
-                            fichierSrc.skip(tailleDiv);
-                            switch(taille % 3){
-                                case 0: fichierSrc.read(buffer, 0, tailleDiv);
-                                sortiePartie.write(buffer);
-                                break;
-                                
-                                case 1: fichierSrc.read(buf, 0, tailleDiv+1);
-                                sortiePartie.write(buf, 0, tailleDiv+1);
-                                break;
-                                
-                                case 2: fichierSrc.read(buf, 0, tailleDiv+2);
-                                sortiePartie.write(buf, 0, tailleDiv+1);
-                                break;
-                            }
-                            
-                          
-                            break;
-                            
-                        case "3":
-                            try {
-                                while(fichierSrc.skip(-1) != 0) {
-                                    
-                                }
-                            } catch(IOException e) {
-                                
-                            }
-                            fichierSrc.skip(taille-tailleDiv);
-                            fichierSrc.read(buffer, 0, tailleDiv);
-                            sortiePartie.write(buffer);
-                          
-                           
-                            break;
+                       
                     }
-                    
-                   
 
-                }
-                
                 sss.close();
                 sssB.close();
             } catch(IOException e) {
@@ -150,4 +102,6 @@ public class ServeurPara {
     }
     
 }
+
+
 

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -19,14 +18,14 @@ import java.util.Scanner;
  *
  * @author Baalal,Hott,Vaty
  */
-public class ServeurPara {
+public class ServeurPara3 {
     public static void main(String args[]) throws Exception {
         
         // Création d'un socket pour le nom du fichier sur le port 40000
-        ServerSocket ss = new ServerSocket(40000);
+        ServerSocket ss = new ServerSocket(40002);
         
           // Création d'un socket pour les données binaires
-        ServerSocket ssB = new ServerSocket(39000);
+        ServerSocket ssB = new ServerSocket(39002);
         
         Scanner entree = new Scanner(System.in);
         String cheminFich;
@@ -64,62 +63,21 @@ public class ServeurPara {
                 sss = ss.accept();
                 sssB = ssB.accept();
                 
-                //Construction d'un PrintStream pour envoyer le nom du fichier à récupérer
-                PrintStream ps = new PrintStream(sss.getOutputStream());
+               
                 
                 // Construction d'un BufferedReader pour lire le nom du fichier envoyé à travers la connexion socket
                 BufferedReader entreeClient = new BufferedReader(new InputStreamReader(sss.getInputStream()));
                 
                 BufferedOutputStream sortiePartie = new BufferedOutputStream(sssB.getOutputStream());
                 
-                ps.println(ch);
+               
                 System.out.println(ch);
                 
-                
-               
-                for (int i=0;i<3;i++) {
-                    
+
                    
                     switch (entreeClient.readLine()){
-                        case "1":
-                            try {
-                                while(fichierSrc.skip(-1) != 0) {
-                                    
-                                }
-                            } catch(IOException e) {
-                                
-                            }
-                            fichierSrc.read(buffer, 0, tailleDiv);
-                            sortiePartie.write(buffer);
-                            
-                            break;
-                            
-                        case "2":
-                            try {
-                                while(fichierSrc.skip(-1) != 0) {
-                                    
-                                }
-                            } catch(IOException e) {
-                                
-                            }
-                            fichierSrc.skip(tailleDiv);
-                            switch(taille % 3){
-                                case 0: fichierSrc.read(buffer, 0, tailleDiv);
-                                sortiePartie.write(buffer);
-                                break;
-                                
-                                case 1: fichierSrc.read(buf, 0, tailleDiv+1);
-                                sortiePartie.write(buf, 0, tailleDiv+1);
-                                break;
-                                
-                                case 2: fichierSrc.read(buf, 0, tailleDiv+2);
-                                sortiePartie.write(buf, 0, tailleDiv+1);
-                                break;
-                            }
-                            
-                          
-                            break;
-                            
+                      
+                   
                         case "3":
                             try {
                                 while(fichierSrc.skip(-1) != 0) {
@@ -136,10 +94,7 @@ public class ServeurPara {
                             break;
                     }
                     
-                   
-
-                }
-                
+       
                 sss.close();
                 sssB.close();
             } catch(IOException e) {
@@ -150,4 +105,9 @@ public class ServeurPara {
     }
     
 }
+
+
+
+
+
 
