@@ -52,8 +52,6 @@ public class ServeurPara3 {
         // On découpe le fichier en 3
         int tailleDiv = taille/3;
         byte[] buffer = new byte[tailleDiv];
-        byte[] buf = new byte[tailleDiv+2];
-        
         
         while(true) {
             Socket sss;
@@ -63,38 +61,40 @@ public class ServeurPara3 {
                 sss = ss.accept();
                 sssB = ssB.accept();
                 
-               
+                
                 
                 // Construction d'un BufferedReader pour lire le nom du fichier envoyé à travers la connexion socket
                 BufferedReader entreeClient = new BufferedReader(new InputStreamReader(sss.getInputStream()));
                 
                 BufferedOutputStream sortiePartie = new BufferedOutputStream(sssB.getOutputStream());
                 
-               
+                
                 System.out.println(ch);
                 
-
-                   
-                    switch (entreeClient.readLine()){
-                      
-                   
-                        case "3":
-                            try {
-                                while(fichierSrc.skip(-1) != 0) {
-                                    
-                                }
-                            } catch(IOException e) {
+                
+                // Si le client choisi le troisème bloc on lit la dernière partie du fichier et on envoie
+                switch (entreeClient.readLine()){
+                    
+                    
+                    case "3":
+                        // On vérifie que l'on est bien au début du fichier
+                        try {
+                            while(fichierSrc.skip(-1) != 0) {
                                 
                             }
-                            fichierSrc.skip(taille-tailleDiv);
-                            fichierSrc.read(buffer, 0, tailleDiv);
-                            sortiePartie.write(buffer);
-                          
-                           
-                            break;
-                    }
-                    
-       
+                        } catch(IOException e) {
+                            
+                        }
+                        // On passe les 2 premières parties du fichier
+                        fichierSrc.skip(taille-tailleDiv);
+                        fichierSrc.read(buffer, 0, tailleDiv);
+                        sortiePartie.write(buffer);
+                        
+                        
+                        break;
+                }
+                
+                
                 sss.close();
                 sssB.close();
             } catch(IOException e) {
@@ -105,6 +105,12 @@ public class ServeurPara3 {
     }
     
 }
+
+
+
+
+
+
 
 
 

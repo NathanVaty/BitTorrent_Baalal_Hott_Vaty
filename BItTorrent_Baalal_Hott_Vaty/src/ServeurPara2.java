@@ -9,9 +9,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 /*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
+* Ce serveur servira à envoyer la deuxième partie du fichier
 */
 
 /**
@@ -58,7 +56,7 @@ public class ServeurPara2 {
         while(true) {
             Socket sss;
             Socket sssB;
-        
+            
             try {
                 sss = ss.accept();
                 sssB = ssB.accept();
@@ -71,36 +69,41 @@ public class ServeurPara2 {
                 BufferedOutputStream sortiePartie = new BufferedOutputStream(sssB.getOutputStream());
                 
                 System.out.println(ch);
-
-                   
-                    switch (entreeClient.readLine()){
-                            
-                        case "2":
-                            try {
-                                while(fichierSrc.skip(-1) != 0) {
-                                    
-                                }
-                            } catch(IOException e) {
+                
+                // Si le client choisi le deuxième bloc on lit la deuxième partie du fichier et on envoie
+                switch (entreeClient.readLine()){
+                    
+                    case "2":
+                        // On vérifie que l'on est bien au début du fichier
+                        try {
+                            while(fichierSrc.skip(-1) != 0) {
                                 
                             }
-                            fichierSrc.skip(tailleDiv);
-                            switch(taille % 3){
-                                case 0: fichierSrc.read(buffer, 0, tailleDiv);
-                                sortiePartie.write(buffer);
-                                break;
-                                
-                                case 1: fichierSrc.read(buf, 0, tailleDiv+1);
-                                sortiePartie.write(buf, 0, tailleDiv+1);
-                                break;
-                                
-                                case 2: fichierSrc.read(buf, 0, tailleDiv+2);
-                                sortiePartie.write(buf, 0, tailleDiv+1);
-                                break;
-                            }
+                        } catch(IOException e) {
                             
-                          
+                        }
+                        // On passe la première partie du fichier
+                        fichierSrc.skip(tailleDiv);
+                        
+                        // Lors de la divion en 3 du fichier, on peut avoir un reste de 1 ou 2
+                        // Pour pas perdre ces données on vérifie la taille modulo 3 et on adapte
+                        switch(taille % 3){
+                            case 0: fichierSrc.read(buffer, 0, tailleDiv);
+                            sortiePartie.write(buffer);
                             break;
-
+                            
+                            case 1: fichierSrc.read(buf, 0, tailleDiv+1);
+                            sortiePartie.write(buf, 0, tailleDiv+1);
+                            break;
+                            
+                            case 2: fichierSrc.read(buf, 0, tailleDiv+2);
+                            sortiePartie.write(buf, 0, tailleDiv+2);
+                            break;
+                        }
+                        
+                        
+                        break;
+                        
                 }
                 
                 sss.close();
@@ -113,6 +116,15 @@ public class ServeurPara2 {
     }
     
 }
+
+
+
+
+
+
+
+
+
 
 
 

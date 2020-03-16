@@ -53,13 +53,12 @@ public class ServeurPara1 {
         // On découpe le fichier en 3
         int tailleDiv = taille/3;
         byte[] buffer = new byte[tailleDiv];
-        byte[] buf = new byte[tailleDiv+2];
         
         
         while(true) {
             Socket sss;
             Socket sssB;
-        
+            
             try {
                 sss = ss.accept();
                 sssB = ssB.accept();
@@ -74,24 +73,26 @@ public class ServeurPara1 {
                 
                 ps.println(ch);
                 System.out.println(ch);
-                  
-                    switch (entreeClient.readLine()){
-                        case "1":
-                            try {
-                                while(fichierSrc.skip(-1) != 0) {
-                                    
-                                }
-                            } catch(IOException e) {
+                
+                // Si le client choisi le premier bloc on lit la première parti du fichier et on envoie
+                switch (entreeClient.readLine()){
+                    case "1":
+                        // On vérifie que l'on est bien au début du fichier
+                        try {
+                            while(fichierSrc.skip(-1) != 0) {
                                 
                             }
-                            fichierSrc.read(buffer, 0, tailleDiv);
-                            sortiePartie.write(buffer);
+                        } catch(IOException e) {
                             
-                            break;
-                            
-                       
-                    }
-
+                        }
+                        fichierSrc.read(buffer, 0, tailleDiv);
+                        sortiePartie.write(buffer);
+                        
+                        break;
+                        
+                        
+                }
+                
                 sss.close();
                 sssB.close();
             } catch(IOException e) {

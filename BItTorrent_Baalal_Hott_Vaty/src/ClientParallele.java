@@ -21,7 +21,7 @@ import java.util.Scanner;
  * @author Vaty, Hott, Baalal
  */
 
-public class ClientPara1 {
+public class ClientParallele {
     public static void main(String args[]) throws IOException, InterruptedException {
         // Création d'un socket client pour la communication du nom de fichier
         Socket sFich; 
@@ -95,10 +95,7 @@ public class ClientPara1 {
                System.out.print("Entrez le numéro de bloc à télécharger sur le serveur (de 1 à 3): ");
                chaine = entree.nextLine();
               
-               
-               
-               
-               
+              // On envoie notre choix au serveur concerné et on récupère les données 
                switch(chaine) {
                    case "1":
                        sortieNumBloc.println(chaine);
@@ -145,14 +142,13 @@ public class ClientPara1 {
                
            }
            
+           // buffsec et bufftrois contienne les données binaires
+           // on les converties en tableau de byte pour pouvoir les écrire dans le fichier
            System.out.println("Tous les blocs ont été récupéré");
            
             byte[] buf = new byte[tailleA];
             byte[] bufb = new byte[tailleB];
            
-           
-            
-            System.out.println(buf.length);
             
             for (int i=0; i < tailleA; i++) {
                 buf[i] = buffsec.get(i);
@@ -171,6 +167,9 @@ public class ClientPara1 {
         }
     }
 }
+
+
+
 
 
 
