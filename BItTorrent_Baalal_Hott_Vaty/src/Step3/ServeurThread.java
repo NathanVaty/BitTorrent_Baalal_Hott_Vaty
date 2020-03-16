@@ -16,19 +16,21 @@ import java.io.PrintStream;
 import java.net.Socket;
 
 /**
- *
+ * Programme qui décrit le comportement d'une application qui possède déjà le 
+ * fichier et qui va envoyer des blocs de ce dernier à d'autres applications
  * @author Nathan Vaty
  */
 public class ServeurThread implements Runnable {
     
-    //String
+    // Socket pour les données sous format texte
     private final Socket sss;
     
-    //Binaire
+    // Socket pour les données binaires
     private final Socket ssB;
     
     String cheminFich;
     String nomFich;
+    
     public ServeurThread(Socket sss, Socket ssB, String chemin, String nomFich) {
         this.sss = sss;
         this.ssB = ssB;
@@ -39,7 +41,7 @@ public class ServeurThread implements Runnable {
     public void run() { 
         try {
             
-        // traitement d'un client
+        // Construction d'un BufferedOutputStream pour les données binaires à renvoyer
         BufferedOutputStream sortiePartie = new BufferedOutputStream(ssB.getOutputStream());
         
         // Construction d'un BufferedReader pour lire le bloc que l'on doit renvoyer
@@ -48,7 +50,7 @@ public class ServeurThread implements Runnable {
         //Construction d'un PrintStream pour envoyer le nom du fichier à récupérer
         PrintStream ps = new PrintStream(sss.getOutputStream());
         
-         // Construction du FileInputStream qui permet d'envoyer les données binaires au serveur
+         // Construction du FileInputStream qui permet de lire le fichier
         FileInputStream fichierSrc = new FileInputStream(new File(cheminFich));
         
         int taille=0;
@@ -62,6 +64,7 @@ public class ServeurThread implements Runnable {
         
         boolean valide = false;
         
+        // En fonction de ce que demande le client on envoie la partie du fichier demandé ou le nom du fichier
         while (!valide) {
             switch (entreeClient.readLine()){
                 case "1":
@@ -74,7 +77,6 @@ public class ServeurThread implements Runnable {
                     }
                     fichierSrc.read(buffer, 0, tailleDiv);
                     sortiePartie.write(buffer);
-                   // valide = true;
                     break;
                     
                 case "2":
@@ -100,7 +102,6 @@ public class ServeurThread implements Runnable {
                         break;
                     }
                     
-                    //valide = true;
                     break;
                     
                 case "3":
@@ -130,12 +131,6 @@ public class ServeurThread implements Runnable {
         }
     }
 }
-
-
-
-
-
-
 
 
 
